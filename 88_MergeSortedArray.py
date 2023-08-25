@@ -45,7 +45,6 @@ class Solution:
         end = m + n - 1
 
         while m > 0 and n > 0:
-            print(m, n, end)
             if nums1[m - 1] > nums2[n - 1]:
                 nums1[end] = nums1[m - 1]
                 m -= 1
@@ -60,3 +59,8 @@ class Solution:
             end -= 1
 
         return nums1
+
+"""
+Time Complexity: O(m+n)
+Space Complexity: O(1)
+"""
