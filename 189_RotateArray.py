@@ -27,7 +27,7 @@ Constraints:
 0 <= k <= 105
 """
 class Solution:
-    def rotate(self, nums: List[int], k:int) -> :
+    def rotate(self, nums: List[int], k:int) -> None:
         # mod k in case k > len(nums)
         k = k % len(nums)
 
@@ -37,3 +37,8 @@ class Solution:
             temp[(i + k) % len(nums)] = nums[i]
 
         nums[:] = temp[:]
+
+"""
+Time Complexity: O(n)
+Space Complexity: O(n)
+"""
