@@ -67,6 +67,7 @@ Explanation:
     The time complexity is O(n*log(n)). The for loop will go through the whole list which is O(n). The while loop will 
     technically be O(ln_i(n)), but we can just use O(log(n)) as the umbrella time complexity. Since we run the while loop
     for every number, the final time complexity will be O(n*log(n)). 
-    The space complexity will be O(n) since we create a list with n+1 values. Therefore it will always be linear. 
+    The space complexity will be O(n) since we create a list with n+1 values. Therefore it will always be linear. .
+    
     
 """
