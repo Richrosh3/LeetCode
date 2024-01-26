@@ -20,31 +20,29 @@ Output: 0
 Constraints:
 0 <= n <= 5 * 10^6
 """
+
+
 class Solution:
     def countPrimes(self, n: int) -> int:
-        if n <= 1:
+        if n <= 2:
             return 0
 
-        table = [True for i in range(n + 1)]
+        table = [True for i in range(n)]
         table[0] = table[1] = False
 
-        for i in range(2, n + 1):
-            if table[i] is True and 2 * i < n:
-                table = self.findMultiples(table, i)
-            else:
-                break
+        def findMultiple(num):
+            idx = 2*num
+
+            while idx < n:
+                table[idx] = False
+                idx += num
+
+        for j in range(2, int(n**.5)+1):
+            if table[j] is True and 2*j < n:
+                findMultiple(j)
 
         return sum(table)
 
-    def findMultiples(self, table, num):
-        index = 2 * num
-
-        while index < len(table):
-            table[index] = False
-
-            index += num
-
-        return table
 
 """
 Time Complexity: O(n*log(n))
@@ -55,19 +53,21 @@ Explanation:
     Then we create a list that represents all the values from 0 to n and set them to all True. 
     We know that 0 and 1 are not considered prime numbers so we set them to False. 
     
-    In the for loop, we start at 2 (the first prime number) and go to n+1. If the current index is set to True, we know 
-    can declare that the current index is a prime. We then take a look at all its multiples and set them to False. The
-    reason I also include the (2*i) < n check is because if (2*i) is greater than n, then we are needlessly looking at
-    numbers that will not even matter. So that (2*i) < n is for optimization. 
-    If the current index's value is set to False, we can declare that it is not a prime, and skip it. 
+    In the for loop, we start at 2 (the first prime number) and go to sqrt(n) + 1. This shortens down the numbers that
+    need to be checked.
+    If the current index is set to True, we know can declare that the current index is a prime. 
+    We then take a look at all its multiples and set them to False. The reason I also include the (2*j) < n check is because 
+    if (2*j) is greater than n, then we are needlessly looking at numbers that will not even matter. So that (2*j) < n 
+    is for optimization. 
     
-    After we finish the for loop, we can return out number of primes. Since True is equivalent to 1 and False is equivalent
+    Now we enter the while loop to eliminate multiples of prime numbers by setting their value in the table to False.
+    
+    After we finish the loops, we can return out number of primes. Since True is equivalent to 1 and False is equivalent
     to 0 in python, we can take the total sum of the table list. This will give us the total number of primes.
     
     The time complexity is O(n*log(n)). The for loop will go through the whole list which is O(n). The while loop will 
     technically be O(ln_i(n)), but we can just use O(log(n)) as the umbrella time complexity. Since we run the while loop
     for every number, the final time complexity will be O(n*log(n)). 
+    
     The space complexity will be O(n) since we create a list with n+1 values. Therefore it will always be linear. .
-    
-    
 """
